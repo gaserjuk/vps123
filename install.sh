@@ -3,11 +3,11 @@
 sudo apt update -y
 
 echo "=== Installing Xfce4 ==="
-sudo apt install xfce4 xrdp -y > /dev/null 2>&1
+sudo apt install xfce4 xrdp -y
 
 echo "startxfce4" > ~/.xsession
-sudo chown $(whoami):$(whoami) ~/.xsession > /dev/null 2>&1
-sudo systemctl enable xrdp > /dev/null 2>&1
+sudo chown $(whoami):$(whoami) ~/.xsession
+sudo systemctl enable xrdp
 
 echo "=== Installing Chrome ==="
 wget http://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_134.0.6998.165-1_amd64.deb > /dev/null 2>&1

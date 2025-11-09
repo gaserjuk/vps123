@@ -9,10 +9,11 @@ echo "startxfce4" > ~/.xsession
 sudo chown $(whoami):$(whoami) ~/.xsession
 sudo systemctl enable xrdp > /dev/null 2>&1
 
-echo "===> Installing Chrome"
+echo "===> Installing Gdown"
 sudo apt install python3-pip -y > /dev/null 2>&1
 sudo pip install gdown > /dev/null 2>&1
 
+echo "===> Installing Chrome"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null 2>&1
 sudo dpkg -i google-chrome-stable_current_amd64.deb > /dev/null 2>&1
 sudo apt --fix-broken install -y > /dev/null 2>&1

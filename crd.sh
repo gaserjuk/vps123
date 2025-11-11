@@ -1,28 +1,66 @@
 #!/bin/bash
 
-sudo apt update -y
+{
+username="gibhq"
+password="gibhq"
+sudo useradd -m "$username"
+sudo adduser "$username" sudo
+echo "$username:$password" | sudo chpasswd
+sed -i 's/\/bin\/sh/\/bin\/bash/g' /etc/passwd
+} > /dev/null 2>&1
 
-echo "===> Installing CRD"
-wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /dev/null 2>&1
-sudo dpkg -i chrome-remote-desktop_current_amd64.deb > /dev/null 2>&1
-sudo apt --fix-broken install -y > /dev/null 2>&1
+CRP=""
+Pin=123456
 
+installCRD() {
+    echo "Installing Crd"
+    wget https://dl.google.com/linux/direct/chrome-remote-desktop_current_amd64.deb > /dev/null 2>&1
+    sudo dpkg --install chrome-remote-desktop_current_amd64.deb > /dev/null 2>&1
+    sudo apt install --assume-yes --fix-broken > /dev/null 2>&1
+}
 
-echo "===> Installing Xfce"
-sudo apt install xfce4 xfce4-goodies -y > /dev/null 2>&1
-sudo apt remove gnome-terminal -y > /dev/null 2>&1
-sudo apt install remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-secret -y > /dev/null 2>&1
+installDesktopEnvironment() {
+    echo "Installing Xfce"
+    sudo apt install --assume-yes xfce4 xfce4-goodies > /dev/null 2>&1
+    echo "exec xfce4-session" > ~/.chrome-remote-desktop-session
+    chmod +x ~/.chrome-remote-desktop-session
+    sudo apt remove --assume-yes gnome-terminal > /dev/null 2>&1
+}
 
-echo "exec xfce4-session" > ~/.chrome-remote-desktop-session
-chmod +x ~/.chrome-remote-desktop-session
+installBrowser() {
+    echo "Installing Browser"
+    sudo apt install remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-secret -y > /dev/null 2>&1
+    
+    sudo apt install python3-pip -y > /dev/null 2>&1
+    sudo pip install gdown > /dev/null 2>&1
+    
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null 2>&1
+    sudo dpkg -i google-chrome-stable_current_amd64.deb > /dev/null 2>&1
+    sudo apt --fix-broken install -y > /dev/null 2>&1
+}
 
+getCRP() {
+    printf '\nCheck https://remotedesktop.google.com/headless \n'
+    read -p "SSH Code: " CRP
+    if [ -z "$CRP" ]; then
+        echo "Please enter a valid value."
+        getCRP
+    fi
+}
 
-echo "===> Installing Chrome"
-sudo apt install python3-pip -y > /dev/null 2>&1
-sudo pip install gdown > /dev/null 2>&1
+finish() {
+    sudo adduser $username chrome-remote-desktop
+    command="$CRP --pin=$Pin"
+    sudo su - $username -c "$command"
+    sudo /etc/init.d/chrome-remote-desktop start
+}
 
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null 2>&1
-sudo dpkg -i google-chrome-stable_current_amd64.deb > /dev/null 2>&1
-sudo apt --fix-broken install -y > /dev/null 2>&1
+# Main
+sudo apt update
+installCRD
+installDesktopEnvironment
+installBrowser
+getCRP
+finish
 
-echo "https://remotedesktop.google.com/headless"
+while true; do sleep 10; done

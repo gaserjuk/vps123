@@ -29,18 +29,16 @@ installDesktopEnvironment() {
 
 installBrowser() {
     echo "Installing Browser"
-    sudo apt install remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-secret -y > /dev/null 2>&1
-    
-    sudo apt install python3-pip -y > /dev/null 2>&1
-    sudo pip install gdown > /dev/null 2>&1
-    
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null 2>&1
     sudo dpkg -i google-chrome-stable_current_amd64.deb > /dev/null 2>&1
-    sudo apt --fix-broken install -y > /dev/null 2>&1
+    sudo apt install --assume-yes --fix-broken > /dev/null 2>&1
+    sudo apt install --assume-yes remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-secret > /dev/null 2>&1
+    sudo apt install --assume-yes python3-pip > /dev/null 2>&1
+    sudo pip install gdown > /dev/null 2>&1
 }
 
 getCRP() {
-    printf '\nCheck https://remotedesktop.google.com/headless \n'
+    echo "Check https://remotedesktop.google.com/headless"
     read -p "SSH Code: " CRP
     if [ -z "$CRP" ]; then
         echo "Please enter a valid value."
@@ -49,9 +47,9 @@ getCRP() {
 }
 
 finish() {
-    sudo adduser $username chrome-remote-desktop
-    command="$CRP --pin=$Pin"
-    sudo su - $username -c "$command"
+    sudo adduser $username chrome-remote-desktop > /dev/null 2>&1
+    command="$CRP --pin=$Pin" > /dev/null 2>&1
+    sudo su - $username -c "$command" > /dev/null 2>&1
     sudo /etc/init.d/chrome-remote-desktop start
 }
 

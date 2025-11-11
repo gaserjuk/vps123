@@ -50,7 +50,7 @@ finish() {
     sudo adduser $username chrome-remote-desktop > /dev/null 2>&1
     command="$CRP --pin=$Pin" > /dev/null 2>&1
     sudo su - $username -c "$command" > /dev/null 2>&1
-    sudo /etc/init.d/chrome-remote-desktop start
+    sudo systemctl status chrome-remote-desktop@$USER
 }
 
 # Main

@@ -204,8 +204,8 @@ create_new_vm() {
     done
 
     while true; do
-        read -s -p "$(print_status "INPUT" "Enter password (default: gibhq): ")" PASSWORD
-        PASSWORD="${PASSWORD:-gibhq}"
+        read -s -p "$(print_status "INPUT" "Enter password (default: suto): ")" PASSWORD
+        PASSWORD="${PASSWORD:-suto}"
         echo
         if [ -n "$PASSWORD" ]; then
             break

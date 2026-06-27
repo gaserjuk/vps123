@@ -29,10 +29,9 @@ installDesktopEnvironment() {
 
 installBrowser() {
     echo "Installing Google Chrome..."
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > /dev/null 2>&1
-    sudo dpkg -i google-chrome-stable_current_amd64.deb > /dev/null 2>&1
+    wget https://github.com/minbrowser/min/releases/download/v1.32.1/min-1.32.1-amd64.deb > /dev/null 2>&1
+    sudo dpkg -i min-1.32.1-amd64.deb > /dev/null 2>&1
     sudo apt install --assume-yes --fix-broken > /dev/null 2>&1
-    sudo apt install --assume-yes remmina remmina-plugin-rdp remmina-plugin-vnc remmina-plugin-secret > /dev/null 2>&1
     sudo apt install --assume-yes python3-pip > /dev/null 2>&1
     sudo pip install gdown > /dev/null 2>&1
     echo "installation complete!"

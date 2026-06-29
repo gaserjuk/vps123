@@ -20,8 +20,8 @@ installCRD() {
 
 installDesktopEnvironment() {
     echo "Installing Desktop Environment..."
-    sudo apt install ubuntu-mate-core xrdp -y > /dev/null 2>&1
-    echo "mate-session" > ~/.chrome-remote-desktop-session
+    sudo apt install openbox obconf xrdp tint2 pcmanfm -y > /dev/null 2>&1
+    echo "openbox-session" > ~/.chrome-remote-desktop-session
     chmod +x ~/.chrome-remote-desktop-session
     sudo apt remove --assume-yes gnome-terminal > /dev/null 2>&1
     echo "installation complete!"

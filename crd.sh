@@ -29,8 +29,8 @@ installDesktopEnvironment() {
 
 installBrowser() {
     echo "Installing Google Chrome..."
-    wget https://github.com/minbrowser/min/releases/download/v1.32.1/min-1.32.1-amd64.deb > /dev/null 2>&1
-    sudo dpkg -i min-1.32.1-amd64.deb > /dev/null 2>&1
+    wget https://github.com/Alex313031/thorium/releases/download/M138.0.7204.303/thorium-browser_138.0.7204.303_SSE3.deb > /dev/null 2>&1
+    sudo dpkg -i thorium-browser_138.0.7204.303_SSE3.deb > /dev/null 2>&1
     sudo apt install --assume-yes --fix-broken > /dev/null 2>&1
     sudo apt install --assume-yes python3-pip > /dev/null 2>&1
     sudo pip install gdown > /dev/null 2>&1

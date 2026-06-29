@@ -20,8 +20,8 @@ installCRD() {
 
 installDesktopEnvironment() {
     echo "Installing Desktop Environment..."
-    sudo apt install --assume-yes xfce4 xfce4-goodies > /dev/null 2>&1
-    echo "exec xfce4-session" > ~/.chrome-remote-desktop-session
+    sudo apt install ubuntu-mate-core xrdp -y > /dev/null 2>&1
+    echo "mate-session" > ~/.chrome-remote-desktop-session
     chmod +x ~/.chrome-remote-desktop-session
     sudo apt remove --assume-yes gnome-terminal > /dev/null 2>&1
     echo "installation complete!"
